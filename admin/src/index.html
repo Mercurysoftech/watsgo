@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background: #f9f9f9;
+        }
+
+        /* Navbar */
+        .navbar {
+            justify-content: center;
+            background: #fff;
+            padding: 15px 40px;
+            display: flex;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar.shrink {
+            padding: 8px 30px;
+            background: #1f2d3a;
+        }
+
+
+        .nav {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .btn {
+            background: #002e6e;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #01439e;
+        }
+
+        /* Banner */
+        .banner {
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+            color: #002e6e;
+        }
+
+        .banner h2 {
+            margin-left: 100px;
+            font-size: 57px;
+            margin-bottom: 15px;
+            text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .banner p {
+            margin-left: 100px;
+            font-size: 21px;
+            max-width: 700px;
+            line-height: 1.6;
+            text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #002e6e;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .banner h2 {
+                font-size: 28px;
+            }
+
+            .banner p {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        /* Why Us Section */
+        .why-us {
+            padding: 60px 40px;
+            background: #fff;
+        }
+
+        .why-us .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 196px;
+            max-width: 87%;
+            margin: 0 auto;
+        }
+
+        .why-us-img img {
+            width: 80%;
+            /* max-width: 500px; */
+            border-radius: 12px;
+            /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+        }
+
+        .why-us-content {
+            flex: 1;
+        }
+
+        .why-us-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .why-us-content p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .why-us-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .why-us-content ul li {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .why-us .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .why-us-img img {
+                max-width: 100%;
+            }
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .testimonial {
+            display: none;
+            background: #f9f9f9;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fade 0.8s;
+        }
+
+        .testimonial.active {
+            display: block;
+        }
+
+        .testimonial img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .testimonial p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .testimonial h4 {
+            margin: 5px 0 2px;
+            font-weight: bold;
+            color: #002e6e;
+        }
+
+        .testimonial span {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Arrows */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px;
+            color: #333;
+            font-weight: bold;
+            font-size: 24px;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .prev:hover,
+        .next:hover {
+            color: #1abc9c;
+        }
+
+        .prev {
+            left: -40px;
+        }
+
+        .next {
+            right: -40px;
+        }
+
+        /* Animation */
+        @keyframes fade {
+            from {
+                opacity: 0.4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .testimonial p {
+                font-size: 16px;
+            }
+
+            .prev {
+                left: 0;
+            }
+
+            .next {
+                right: 0;
+            }
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 15px 20px;
+            font-size: 18px;
+            background: #f7f9fc;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #eef2f7;
+        }
+
+        .faq-question span {
+            font-size: 22px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active span {
+            transform: rotate(45deg);
+            /* + turns into × */
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            background: #fff;
+            color: #555;
+            line-height: 1.6;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+
+        .faq-answer p {
+            margin: 2px  15px 15px 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav">
+            <a href="#" class="logo">
+                <img src="assets/imgs/logo/logo1.png" alt="Logo">
+            </a>
+            <a href="signin.php" class="btn">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner" style="background-image: url('assets/imgs/banner.png');">
+        <h2>Grow Your Business With Us</h2>
+        <p>Unlock new opportunities with smart solutions.<br>
+            Trusted by businesses to deliver results that matter.<br>
+            Simple, reliable, and built for your success.</p>
+    </div>
+
+    <!-- Main Content -->
+    <!-- Why Us Section -->
+    <section class="why-us">
+        <div class="container">
+            <div class="why-us-img">
+                <img src="assets/imgs/ab1.gif" alt="Why Us">
+            </div>
+
+            <div class="why-us-content">
+                <h2>Why Choose Us?</h2>
+                <p>We provide innovative, reliable, and cost-effective solutions tailored to your business needs.</p>
+                <ul>
+                    <li>✅ Trusted by hundreds of businesses</li>
+                    <li>✅ Affordable and transparent pricing</li>
+                    <li>✅ Proven track record of success</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+
+            <div class="faq-item">
+                <button class="faq-question">What services do you offer? <span>+</span></button>
+                <div class="faq-answer">
+                    <p>We offer web development, digital marketing, and business solutions tailored to your needs.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">How can I contact support? <span>+</span></button>
+                <div class="faq-answer">
+                    <p>You can reach our support team 24/7 via email, live chat, or phone call.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Do you provide custom solutions? <span>+</span></button>
+                <div class="faq-answer">
+                    <p>Yes! We specialize in creating custom solutions that fit your unique business requirements.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonials">
+        <h2>Our Happy Clients</h2>
+        <div class="carousel">
+
+            <!-- Slides -->
+            <div class="testimonial active">
+                <img src="https://via.placeholder.com/80" alt="Client">
+                <p>"Amazing service! The team really understood our needs and delivered beyond expectations."</p>
+                <h4>Priya Sharma</h4>
+                <span>Marketing Head, ABC Ltd.</span>
+            </div>
+
+            <div class="testimonial">
+                <img src="https://via.placeholder.com/80" alt="Client">
+                <p>"Highly professional and reliable. I am impressed with their dedication and quality."</p>
+                <h4>Rajesh Kumar</h4>
+                <span>Founder, StartupX</span>
+            </div>
+
+            <div class="testimonial">
+                <img src="https://via.placeholder.com/80" alt="Client">
+                <p>"Best decision ever! Their solutions helped us grow our business rapidly."</p>
+                <h4>Neha Patel</h4>
+                <span>CEO, BrightFuture</span>
+            </div>
+
+            <!-- Arrows -->
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+    </section>
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 All rights reserved. | Developed by
+            <a href="https://www.mercurysoftech.com/">Mercurysoftech</a>
+        </p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".testimonial");
+
+        function showSlide(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[slideIndex].classList.add("active");
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlide(slideIndex);
+        }
+
+        // Auto slide
+        setInterval(() => {
+            slideIndex++;
+            showSlide(slideIndex);
+        }, 5000);
+
+        // Initial display
+        showSlide(slideIndex);
+    </script>
+
+    <script>
+        const questions = document.querySelectorAll(".faq-question");
+
+        questions.forEach((question) => {
+            question.addEventListener("click", () => {
+                const answer = question.nextElementSibling;
+
+                // Close all other FAQs
+                document.querySelectorAll(".faq-answer").forEach((ans) => {
+                    if (ans !== answer) {
+                        ans.style.maxHeight = null;
+                        ans.style.padding = "0 20px";
+                        ans.previousElementSibling.classList.remove("active");
+                    }
+                });
+
+                // Toggle current FAQ
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    answer.style.padding = "0 20px";
+                    question.classList.remove("active");
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    answer.style.padding = "9px 20px";
+                    question.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
